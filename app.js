@@ -15,9 +15,9 @@ app.use((req, res, next) => {
 // CORS configuration
 app.options('*', cors()) // enable pre-flight for all routes
 app.use(cors({
-    origin: ['*','https://goldstarbondcleaning.com.au','https://goldstarbondcleaning.com','http://localhost:5173/'], 
+    origin: true, // Allow all origins
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: false, 
+    credentials: false, // Don't need credentials for now
     preflightContinue: false,
     optionsSuccessStatus: 204
 }));
