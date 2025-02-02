@@ -115,7 +115,7 @@ Website Booking System
         const info = await transporter.sendMail({
             from: process.env.SMTP_USER,
             to: process.env.RECIPIENT_EMAIL,
-            subject: '🏠 New Booking Request - Gold Star Bond Cleaning',
+            subject: `🏠 New Booking Request from ${suburb} for ${propertyType}`,
             text: emailContent,
             html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
