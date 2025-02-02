@@ -166,6 +166,18 @@ Website Booking System
     }
 });
 
+// Add this new endpoint
+app.get('/api/cron', (req, res) => {
+    const timestamp = new Date().toISOString();
+    console.log(`Cron job pinged at: ${timestamp}`);
+    
+    res.status(200).json({
+        status: 'success',
+        message: 'Cron job executed successfully',
+        timestamp: timestamp
+    });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
