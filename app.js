@@ -111,10 +111,14 @@ Website Booking System
 ──────────────────────────────────
 `;
 
-        // Send email with HTML formatting
+        // Send email
         const info = await transporter.sendMail({
-            from: process.env.SMTP_USER,
+            from: {
+                name: 'Gold Star Bond Cleaning',
+                address: process.env.SMTP_USER
+            },
             to: process.env.RECIPIENT_EMAIL,
+            replyTo: email, // This ensures replies go to the customer
             subject: `🏠 New Booking Request from ${suburb} for ${propertyType}`,
             text: emailContent,
             html: `
