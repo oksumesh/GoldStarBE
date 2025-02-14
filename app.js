@@ -1,9 +1,13 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
+
+// Add blog router
+const blogRouter = require('./router/blogRouter');
 
 // Debug incoming requests
 app.use((req, res, next) => {
@@ -22,7 +26,12 @@ app.use(cors({
     optionsSuccessStatus: 204
 }));
 
-app.use(express.json());
+// Increase payload size limit for large images
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+
+// Serve static files from public directory
+app.use('/uploads', express.static('public/uploads'));
 
 // Test endpoint
 app.get('/test', (req, res) => {
@@ -181,6 +190,17 @@ app.get('/api/cron', (req, res) => {
         timestamp: timestamp
     });
 });
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Use blog router
+app.use('/api/blogs', blogRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
