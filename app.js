@@ -230,19 +230,13 @@ Quick Booking System
             html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
                 <div style="background-color: #003366; color: white; padding: 20px; text-align: center; border-radius: 5px;">
-                    <h1 style="margin: 0;">Quick Booking Request</h1>
+                    <h1 style="margin: 0;">⚡ Quick Booking Request</h1>
                 </div>
                 
                 <div style="background-color: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px;">👤 Customer Details</h2>
                     <p><strong>Email:</strong> ${email}</p>
                     <p><strong>Contact:</strong> ${phone || 'Not provided'}</p>
-                    
-                    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px; margin-top: 30px;">📝 Request Details</h2>
-                    <p><strong>Type:</strong> Quick Booking</p>
-                    <p><strong>Default Package:</strong> Bond Cleaning</p>
-                    <p><strong>Bedrooms:</strong> 1</p>
-                    <p><strong>Bathrooms:</strong> 1</p>
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px; padding: 20px; color: #666;">
