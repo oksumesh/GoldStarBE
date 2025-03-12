@@ -179,6 +179,91 @@ Website Booking System
     }
 });
 
+// Quick Booking endpoint
+app.post('/api/quick-booking', async (req, res) => {
+    console.log('Received quick booking request:', req.body);
+    
+    try {
+        const {
+            email,
+            phone
+        } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ error: 'Email is required' });
+        }
+
+        // Create email content with better formatting
+        const emailContent = `
+╔════════════════════════════════════════╗
+║         QUICK BOOKING REQUEST          ║
+╚════════════════════════════════════════╝
+
+👤 CUSTOMER DETAILS
+-------------------
+• Email: ${email}
+• Contact: ${phone || 'Not provided'}
+
+📝 REQUEST DETAILS
+-----------------
+• Type: Quick Booking
+• Default Package: Bond Cleaning
+• Bedrooms: 1
+• Bathrooms: 1
+
+──────────────────────────────────
+Generated via Gold Star Bond Cleaning
+Quick Booking System
+──────────────────────────────────
+`;
+
+        // Send email
+        const info = await transporter.sendMail({
+            from: {
+                name: 'Gold Star Bond Cleaning',
+                address: process.env.SMTP_USER
+            },
+            to: process.env.RECIPIENT_EMAIL,
+            replyTo: email,
+            subject: `⚡ Quick Booking Request`,
+            text: emailContent,
+            html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+                <div style="background-color: #003366; color: white; padding: 20px; text-align: center; border-radius: 5px;">
+                    <h1 style="margin: 0;">Quick Booking Request</h1>
+                </div>
+                
+                <div style="background-color: white; padding: 20px; margin-top: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px;">👤 Customer Details</h2>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Contact:</strong> ${phone || 'Not provided'}</p>
+                    
+                    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 10px; margin-top: 30px;">📝 Request Details</h2>
+                    <p><strong>Type:</strong> Quick Booking</p>
+                    <p><strong>Default Package:</strong> Bond Cleaning</p>
+                    <p><strong>Bedrooms:</strong> 1</p>
+                    <p><strong>Bathrooms:</strong> 1</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px; padding: 20px; color: #666;">
+                    <p style="margin: 5px 0;">Generated via Gold Star Bond Cleaning</p>
+                    <p style="margin: 5px 0;">Quick Booking System</p>
+                </div>
+            </div>
+            `
+        });
+
+        console.log('Quick booking email sent:', info);
+        res.status(200).json({ message: 'Quick booking email sent successfully' });
+    } catch (error) {
+        console.error('Error sending quick booking email:', error);
+        res.status(500).json({ 
+            error: 'Failed to send quick booking email',
+            details: error.message 
+        });
+    }
+}); 
+
 // Add this new endpoint
 app.get('/api/cron', (req, res) => {
     const timestamp = new Date().toISOString();
