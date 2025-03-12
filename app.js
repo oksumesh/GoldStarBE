@@ -225,7 +225,7 @@ Quick Booking System
             },
             to: process.env.RECIPIENT_EMAIL,
             replyTo: email,
-            subject: `⚡ Quick Booking Request`,
+            subject: `⚡ Quick Booking Request from ${email}`,
             text: emailContent,
             html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
