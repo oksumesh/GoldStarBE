@@ -8,6 +8,7 @@ const app = express();
 
 // Add blog router
 const blogRouter = require('./router/blogRouter');
+const suburbRouter = require('./router/suburbRouter');
 
 // Debug incoming requests
 app.use((req, res, next) => {
@@ -280,6 +281,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Use blog router
 app.use('/api/blogs', blogRouter);
+app.use('/api/suburbs', suburbRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
